@@ -27,19 +27,19 @@ public class jdbc22 {
             con.setAutoCommit(false);
             
             PreparedStatement ps = con.prepareStatement("INSERT INTO accounts (acc_no, acc_holder, balance) VALUES (?, ?, ?)");
-            ps.setInt(1, 103);
+            ps.setInt(1, 107);
             ps.setString(2,"suhas");
             ps.setDouble(3,5000);
             ps.addBatch();
             
-            ps.setInt(1, 104);
+            ps.setInt(1, 108);
             ps.setString(2,"ajith");
             ps.setDouble(3,5000);
             ps.addBatch();
             
-            ps.setInt(1, 105);
+            ps.setInt(1, 109);
+            ps.setString(2,"amith");
             ps.setDouble(3,5000);            
-            ps.setInt(1, 105);
 
             ps.addBatch();
             ps.executeBatch();
@@ -62,6 +62,15 @@ public class jdbc22 {
             con.commit();
             System.out.println("Transaction Successful!");
             
+            ResultSet rs = ps.executeQuery("SELECT * FROM accounts");
+
+            while (rs.next()) {
+            int acc = rs.getInt("acc_no");
+            String name = rs.getString("acc_holder");
+            double bal = rs.getDouble("balance");
+
+            System.out.println(acc + " | " + name + " | " + bal);
+}
         }
         catch(SQLException e)
         {
@@ -81,7 +90,9 @@ public class jdbc22 {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            
     }
+        
     }
 }
 
